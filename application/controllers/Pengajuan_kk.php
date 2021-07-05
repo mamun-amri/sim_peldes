@@ -201,7 +201,7 @@ class Pengajuan_kk extends CI_Controller
 		}
 		$data = array(
 			'button' => 'Create',
-			'action' => site_url('pengajuan_ktp/tolak_action'),
+			'action' => site_url('pengajuan_kk/tolak_action'),
 			'id' => set_value('id', $id),
 			'penolak' => set_value('penolak', $penolak),
 			'keterangan' => set_value('keterangan'),
@@ -220,15 +220,15 @@ class Pengajuan_kk extends CI_Controller
 		if ($this->form_validation->run() == FALSE) {
 			$this->tolak($this->input->post('id', TRUE));
 		} else {
-			$this->_tolak($this->input->post('id', TRUE));
 			$data = array(
 				'penolak' => $this->input->post('penolak', TRUE),
 				'keterangan' => $this->input->post('keterangan', TRUE),
 			);
 
 			$this->Accortolak_model->insert($data);
-			$this->session->set_flashdata('message', '<div class="alert alert-success role="alert">Record Not Found</div>');
-			redirect(site_url('pengajuan_ktp'));
+			$this->_tolak($this->input->post('id', TRUE));
+			// $this->session->set_flashdata('message', '<div class="alert alert-success role="alert">Record Not Found</div>');
+			// redirect(site_url('pengajuan_kk'));
 		}
 	}
 
@@ -333,7 +333,7 @@ class Pengajuan_kk extends CI_Controller
 					$this->session->set_flashdata('message', '<div class="alert alert-danger role="alert">
 				Anda Bukan Staf Desa!
 				</div>');
-					redirect(site_url('pengajuan_ktp'));
+					redirect(site_url('pengajuan_kk'));
 					break;
 			}
 
@@ -342,13 +342,13 @@ class Pengajuan_kk extends CI_Controller
 			$this->session->set_flashdata('message', '<div class="alert alert-success role="alert">
 		Tolak
 		</div>');
-			redirect(site_url('pengajuan_ktp'));
+			redirect(site_url('pengajuan_kk'));
 		} else {
 			$this->session->set_flashdata('message', '<div class="alert alert-warning role="alert">
 			Record Not Found
 			</div>');
 			$this->session->set_flashdata('message', 'Record Not Found');
-			redirect(site_url('pengajuan_ktp'));
+			redirect(site_url('pengajuan_kk'));
 		}
 	}
 
