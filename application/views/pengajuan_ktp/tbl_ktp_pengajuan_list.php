@@ -103,7 +103,7 @@
  						<a href="<?= base_url('pengajuan_ktp/tolak/') . $pengajuan->id ?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin Tolak Data?')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
  						<?php
 							$level = $this->session->userdata('id_user_level');
-							if ($level == 1) {
+							if ($level == 1 && $pengajuan->acc_rt == "acc" && $pengajuan->acc_rw == "acc" && $pengajuan->acc_kepdes == "acc") {
 								echo "<a href=\"" . base_url('pengajuan_ktp/cetak/') . $pengajuan->id . "\" target=\"_blank\" class=\"btn btn-secondary btn-xs\" onclick=\"return confirm('Yakin Cetak Data?')\"><i class=\"fa fa-print\" aria-hidden=\"true\"></i></a>";
 							}
 							?>

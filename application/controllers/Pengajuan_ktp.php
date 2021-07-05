@@ -10,6 +10,7 @@ class Pengajuan_ktp extends CI_Controller
 		parent::__construct();
 		is_login();
 		$this->load->model('Pengajuan_model');
+		$this->load->model('Accortolak_model');
 		$this->load->library('form_validation');
 	}
 
@@ -44,6 +45,20 @@ class Pengajuan_ktp extends CI_Controller
 		);
 		$data['title'] = "Kelola Data Pengajuan KTP";
 		$this->template->load('template', 'pengajuan_ktp/tbl_ktp_pengajuan_list', $data);
+	}
+
+	public function cetak($id)
+	{
+		// Create an instance of the class:
+		$mpdf = new \Mpdf\Mpdf(['format' => [150, 236]]);
+		$data = [
+			"row" => $this->Pengajuan_model->get_by_id($id),
+			"judul" => "KARTU TANDA PENDUDUK",
+			"judul2" => "Kartu Tanda Penduduk Sementara",
+		];
+		$html = $this->load->view('cetak/cetak', $data, true);
+		$mpdf->WriteHTML($html);
+		$mpdf->Output();
 	}
 
 	public function acc($id)
@@ -166,19 +181,177 @@ class Pengajuan_ktp extends CI_Controller
 		}
 	}
 
-	public function cetak($id)
+	public function tolak($id)
 	{
-		// Create an instance of the class:
-		$mpdf = new \Mpdf\Mpdf(['format' => [150, 236]]);
-		$data = [
-			"row" => $this->Pengajuan_model->get_by_id($id),
-			"judul" => "KARTU TANDA PENDUDUK",
-			"judul2" => "Kartu Tanda Penduduk Sementara",
-		];
-		$html = $this->load->view('cetak/cetak', $data, true);
-		$mpdf->WriteHTML($html);
-		$mpdf->Output();
+		$penolak = "";
+		$siapa = $this->session->userdata('id_user_level');
+		switch ($siapa) {
+			case '9':
+				$penolak = "Kepala Desa";
+				break;
+			case '10':
+				$penolak = "RW";
+				break;
+			case '11':
+				$penolak = "RT";
+				break;
+			default:
+				$penolak = "admin nyoba";
+				break;
+		}
+		$data = array(
+			'button' => 'Create',
+			'action' => site_url('pengajuan_ktp/tolak_action'),
+			'id' => set_value('id', $id),
+			'penolak' => set_value('penolak', $penolak),
+			'keterangan' => set_value('keterangan'),
+		);
+		$data['title'] = "Form Accortolak";
+		$this->template->load('template', 'accortolak/tbl_accortolak_form', $data);
 	}
+
+	public function tolak_action()
+	{
+		$this->form_validation->set_rules('penolak', 'penolak', 'trim|required');
+		$this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
+		$this->form_validation->set_rules('id', 'id', 'trim');
+		$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->tolak($this->input->post('id', TRUE));
+		} else {
+			$this->_tolak($this->input->post('id', TRUE));
+			$data = array(
+				'penolak' => $this->input->post('penolak', TRUE),
+				'keterangan' => $this->input->post('keterangan', TRUE),
+			);
+
+			$this->Accortolak_model->insert($data);
+			$this->session->set_flashdata('message', '<div class="alert alert-success role="alert">Record Not Found</div>');
+			redirect(site_url('pengajuan_ktp'));
+		}
+	}
+
+	public function _tolak($id)
+	{
+		$row = $this->Pengajuan_model->get_by_id($id);
+
+		if ($row) {
+			$level = $this->session->userdata('id_user_level');
+			$data = "";
+			switch ($level) {
+				case '11':
+					$data = array(
+						'nama' => $row->nama,
+						'email' => $row->email,
+						'nik' => $row->nik,
+						'no_kk' => $row->no_kk,
+						'jenis_kelamin' => $row->jenis_kelamin,
+						'tempat_lahir' => $row->tempat_lahir,
+						'tanggal_lahir' => $row->tanggal_lahir,
+						'status_menikah' => $row->status_menikah,
+						'pekerjaan' => $row->pekerjaan,
+						'agama' => $row->agama,
+						'no_telp' => $row->no_telp,
+						'negara' => $row->negara,
+						'alamat' => $row->alamat,
+						'rt' => $row->rt,
+						'rw' => $row->rw,
+						'desa' => $row->desa,
+						'kec' => $row->kec,
+						'kab' => $row->kab,
+						'prov' => $row->prov,
+						'kd_post' => $row->kd_post,
+						'pengajuan' => $row->pengajuan,
+						'lampiran' => $row->lampiran,
+						'acc_rt' => 'tolak',
+						'acc_rw' => $row->acc_rw,
+						'acc_kepdes' => $row->acc_kepdes,
+					);
+					break;
+
+				case '10':
+					$data = array(
+						'nama' => $row->nama,
+						'email' => $row->email,
+						'nik' => $row->nik,
+						'no_kk' => $row->no_kk,
+						'jenis_kelamin' => $row->jenis_kelamin,
+						'tempat_lahir' => $row->tempat_lahir,
+						'tanggal_lahir' => $row->tanggal_lahir,
+						'status_menikah' => $row->status_menikah,
+						'pekerjaan' => $row->pekerjaan,
+						'agama' => $row->agama,
+						'no_telp' => $row->no_telp,
+						'negara' => $row->negara,
+						'alamat' => $row->alamat,
+						'rt' => $row->rt,
+						'rw' => $row->rw,
+						'desa' => $row->desa,
+						'kec' => $row->kec,
+						'kab' => $row->kab,
+						'prov' => $row->prov,
+						'kd_post' => $row->kd_post,
+						'pengajuan' => $row->pengajuan,
+						'lampiran' => $row->lampiran,
+						'acc_rt' => $row->acc_rt,
+						'acc_rw' => 'tolak',
+						'acc_kepdes' => $row->acc_kepdes,
+					);
+					break;
+
+				case '9':
+					$data = array(
+						'nama' => $row->nama,
+						'email' => $row->email,
+						'nik' => $row->nik,
+						'no_kk' => $row->no_kk,
+						'jenis_kelamin' => $row->jenis_kelamin,
+						'tempat_lahir' => $row->tempat_lahir,
+						'tanggal_lahir' => $row->tanggal_lahir,
+						'status_menikah' => $row->status_menikah,
+						'pekerjaan' => $row->pekerjaan,
+						'agama' => $row->agama,
+						'no_telp' => $row->no_telp,
+						'negara' => $row->negara,
+						'alamat' => $row->alamat,
+						'rt' => $row->rt,
+						'rw' => $row->rw,
+						'desa' => $row->desa,
+						'kec' => $row->kec,
+						'kab' => $row->kab,
+						'prov' => $row->prov,
+						'kd_post' => $row->kd_post,
+						'pengajuan' => $row->pengajuan,
+						'lampiran' => $row->lampiran,
+						'acc_rt' => $row->acc_rt,
+						'acc_rw' => $row->acc_rw,
+						'acc_kepdes' => 'tolak',
+					);
+					break;
+				default:
+					$this->session->set_flashdata('message', '<div class="alert alert-danger role="alert">
+				Anda Bukan Staf Desa!
+				</div>');
+					redirect(site_url('pengajuan_ktp'));
+					break;
+			}
+
+
+			$this->Pengajuan_model->update($id, $data);
+			$this->session->set_flashdata('message', '<div class="alert alert-success role="alert">
+		Tolak
+		</div>');
+			redirect(site_url('pengajuan_ktp'));
+		} else {
+			$this->session->set_flashdata('message', '<div class="alert alert-warning role="alert">
+			Record Not Found
+			</div>');
+			$this->session->set_flashdata('message', 'Record Not Found');
+			redirect(site_url('pengajuan_ktp'));
+		}
+	}
+
 
 	public function read($id)
 	{
