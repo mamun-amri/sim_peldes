@@ -21,16 +21,16 @@ class User extends CI_Controller
 			case '1':
 				$user = $this->User_model->get_all();
 				break;
-			case '9': //lurah
-				$user = $this->User_model->get_all_where("id_user_level !=", 1);
-				break;
+				// case '9': //lurah
+				// 	$user = $this->User_model->get_all_where("id_user_level !=", 1);
+				// 	break;
 
-			case '10': //rw
-				$this->db->where("id_user_level !=", 1);
-				$this->db->where("id_user_level !=", 9);
-				$this->db->where("rw", $this->session->userdata('rw'));
-				$user = $this->db->get("tbl_user")->result();
-				break;
+				// case '10': //rw
+				// 	$this->db->where("id_user_level !=", 1);
+				// 	$this->db->where("id_user_level !=", 9);
+				// 	$this->db->where("rw", $this->session->userdata('rw'));
+				// 	$user = $this->db->get("tbl_user")->result();
+				// 	break;
 
 			case '11': //rt
 				$this->db->where("id_user_level !=", 1);

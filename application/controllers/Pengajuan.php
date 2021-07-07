@@ -19,7 +19,10 @@ class Pengajuan extends CI_Controller
 		$pengajuan = "";
 		$level = $this->session->userdata('id_user_level');
 		switch ($level) {
-			case '1': //9 lurah
+			case '1':
+				$pengajuan = $this->Pengajuan_model->get_all();
+				break;
+			case '9': //9 lurah
 				$pengajuan = $this->Pengajuan_model->get_all();
 				break;
 				// case '10'://rw
