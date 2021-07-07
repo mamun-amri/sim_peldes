@@ -5,9 +5,14 @@
  	<div class="col-xs-12">
  		<div style="padding-bottom: 10px;">
  			<?php echo anchor(site_url('pengajuan/create'), '<i class="fa fa-plus" aria-hidden="true"></i> Tambah Data', 'class="btn btn-danger btn-sm"'); ?>
- 			<!-- <?php echo anchor(site_url('pengajuan/excel'), '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Export Ms Excel', 'class="btn btn-success btn-sm"'); ?>
-		<?php echo anchor(site_url('pengajuan/word'), '<i class="fa fa-file-word-o" aria-hidden="true"></i> Export Ms Word', 'class="btn btn-primary btn-sm"'); ?>
-		<?php echo anchor(site_url('pengajuan/pdf'), 'PDF', 'class="btn btn-primary btn-sm"'); ?></div> -->
+ 			<!-- <?php echo anchor(site_url('pengajuan/excel'), '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Export Ms Excel', 'class="btn btn-success btn-sm"'); ?> -->
+ 			<?php
+				$level = $this->session->userdata('id_user_level');
+				if ($level == 1 or $level == 9) {
+					echo anchor(site_url('pengajuan/word'), '<i class="fa fa-file-word-o" aria-hidden="true"></i> Export Ms Word', 'class="btn btn-primary btn-sm"');
+				}
+				?>
+ 			<!-- <?php echo anchor(site_url('pengajuan/pdf'), 'PDF', 'class="btn btn-primary btn-sm"'); ?></div> -->
  			<div class='col-md-3 pull-right'>
  				<form action="<?php echo site_url('pengajuan/index'); ?>" class="form-inline" method="get">
  					<div class="input-group">

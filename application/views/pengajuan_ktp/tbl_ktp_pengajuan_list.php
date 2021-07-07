@@ -5,9 +5,9 @@
  	<div class="col-xs-12">
  		<div style="padding-bottom: 10px;">
  			<!-- <?php echo anchor(site_url('pengajuan_ktp/create'), '<i class="fa fa-plus" aria-hidden="true"></i> Tambah Data', 'class="btn btn-danger btn-sm"'); ?> -->
- 			<!-- <?php echo anchor(site_url('pengajuan_ktp/excel'), '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Export Ms Excel', 'class="btn btn-success btn-sm"'); ?>
+ 			<?php echo anchor(site_url('pengajuan_ktp/excel'), '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Export Ms Excel', 'class="btn btn-success btn-sm"'); ?>
  			<?php echo anchor(site_url('pengajuan_ktp/word'), '<i class="fa fa-file-word-o" aria-hidden="true"></i> Export Ms Word', 'class="btn btn-primary btn-sm"'); ?>
- 			<?php echo anchor(site_url('pengajuan_ktp/pdf'), 'PDF', 'class="btn btn-primary btn-sm"'); ?> -->
+ 			<?php echo anchor(site_url('pengajuan_ktp/pdf'), 'PDF', 'class="btn btn-primary btn-sm"'); ?>
  		</div>
  		<div class='col-md-3 pull-right'>
  			<form action="<?php echo site_url('pengajuan_ktp/index'); ?>" class="form-inline" method="get">
@@ -103,7 +103,7 @@
  						<a href="<?= base_url('pengajuan_ktp/tolak/') . $pengajuan->id ?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin Tolak Data?')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
  						<?php
 							$level = $this->session->userdata('id_user_level');
-							if ($level == 1 && $pengajuan->acc_rt == "acc" && $pengajuan->acc_rw == "acc" && $pengajuan->acc_kepdes == "acc") {
+							if ($level == 9 && $pengajuan->acc_rt == "acc" && $pengajuan->acc_rw == "acc" && $pengajuan->acc_kepdes == "acc") {
 								echo "<a href=\"" . base_url('pengajuan_ktp/cetak/') . $pengajuan->id . "\" target=\"_blank\" class=\"btn btn-secondary btn-xs\" onclick=\"return confirm('Yakin Cetak Data?')\"><i class=\"fa fa-print\" aria-hidden=\"true\"></i></a>";
 							}
 							?>
