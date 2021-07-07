@@ -19,10 +19,10 @@ class Pengajuan_ktp extends CI_Controller
 		$pengajuan = "";
 		$level = $this->session->userdata('id_user_level');
 		switch ($level) {
-			case '0':
+			case '1':
 				$pengajuan = $this->Pengajuan_model->get_all();
 				break;
-			case '1': //rw
+			case '10': //rw
 				$this->db->where("pengajuan", "ktp");
 				$this->db->where("rw", $this->session->userdata('rw'));
 				$pengajuan = $this->db->get("tbl_pengajuan")->result();
@@ -222,6 +222,7 @@ class Pengajuan_ktp extends CI_Controller
 		} else {
 
 			$data = array(
+				'id' => $this->input->post('id', TRUE),
 				'penolak' => $this->input->post('penolak', TRUE),
 				'keterangan' => $this->input->post('keterangan', TRUE),
 			);
