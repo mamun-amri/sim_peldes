@@ -232,8 +232,8 @@ class User extends CI_Controller
 		if ($this->form_validation->run() == FALSE) {
 			$this->update($this->input->post('id_users', TRUE));
 		} else {
-			var_dump($foto);
-			die;
+			// var_dump($foto);
+			// die;
 			if ($foto['file_name'] == '') {
 				$data = array(
 					'nama' => $this->input->post('nama', TRUE),

@@ -81,9 +81,13 @@
                                 echo anchor(site_url('user/update/' . $user->id_users), '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', 'class="btn btn-success btn-xs"');
                                 echo '  ';
                                 // echo anchor(site_url('user/delete/'.$user->id_users),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-xs" Delete','onclick="return confirm(\'Yakin Hapus Data?\')"'); 
+                                $level = $this->session->userdata('id_user_level');
+                                if ($level != 12) :
                                 ?>
-
-                             <a href="<?= base_url('user/delete/') . $user->id_users ?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin Hapus Data?')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                 <a href="<?= base_url('user/delete/') . $user->id_users ?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin Hapus Data?')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                             <?php
+                                endif;
+                                ?>
                          </td>
                      </tr>
                  <?php
