@@ -259,7 +259,7 @@ class User extends CI_Controller
 					'nama' => $this->input->post('nama', TRUE),
 					'email' => $this->input->post('email', TRUE),
 					'password' => $pass,
-					'images' =>  $foto['file_name'],
+					// 'images' =>  $foto['file_name'],
 					'id_user_level' => $this->input->post('id_user_level', TRUE),
 					'is_aktif' => $this->input->post('is_aktif', TRUE),
 					'nik' => $this->input->post('nik', TRUE),
