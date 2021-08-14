@@ -139,6 +139,7 @@ class User extends CI_Controller
 				$this->session->set_flashdata('message', '<div class="alert alert-danger role="alert">
 				Nik Sudah Terdaftar
 				</div>');
+				$this->create();
 			} else {
 				$foto = $this->_upload_foto();
 				$this->load->library('encript');
@@ -228,18 +229,37 @@ class User extends CI_Controller
 	public function update_action()
 	{
 		$this->_rules();
-		$foto = $this->_upload_foto();
 		if ($this->form_validation->run() == FALSE) {
 			$this->update($this->input->post('id_users', TRUE));
 		} else {
+			$this->load->library('encript');
+			$post = $this->input->post(null, TRUE);
+			$cleanPost = $this->security->xss_clean($post); //echo $cleanPost['password'];
+			$hashed = $this->encript->create_hash($cleanPost['password']);
+			$cleanPost['password'] = $hashed;
+			unset($cleanPost['passconf']);
 			// var_dump($foto);
 			// die;
+			$row = $this->User_model->get_by_id($this->input->post('id_users', TRUE));
+			$pass = "";
+			if ($this->input->post('password') == $row->password) {
+				$pass = $row->password;
+				// echo "jika sama: " . $pass;
+			} else {
+				$pass = $cleanPost['password'];
+				// echo "jika tidak sama: " . $pass;
+			}
+
+			// var_dump($this->input->post('password') == $row->password);
+			// var_dump($this->input->post('password') . " " . $row->password);
+			// die;
+			$foto = $this->_upload_foto();
 			if ($foto['file_name'] == '') {
 				$data = array(
 					'nama' => $this->input->post('nama', TRUE),
 					'email' => $this->input->post('email', TRUE),
-					//'password' => $this->input->post('password',TRUE),
-					//'images' => $this->input->post('images',TRUE),
+					'password' => $pass,
+					'images' =>  $foto['file_name'],
 					'id_user_level' => $this->input->post('id_user_level', TRUE),
 					'is_aktif' => $this->input->post('is_aktif', TRUE),
 					'nik' => $this->input->post('nik', TRUE),
@@ -266,7 +286,7 @@ class User extends CI_Controller
 				$data = array(
 					'nama' => $this->input->post('nama', TRUE),
 					'email' => $this->input->post('email', TRUE),
-					//'password' => $this->input->post('password',TRUE),
+					'password' => $pass,
 					'images' => $foto['file_name'],
 					'id_user_level' => $this->input->post('id_user_level', TRUE),
 					'is_aktif' => $this->input->post('is_aktif', TRUE),

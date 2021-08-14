@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 05, 2021 at 11:12 AM
+-- Generation Time: Aug 02, 2021 at 11:23 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -38,7 +38,7 @@ CREATE TABLE `tbl_accortolak` (
 --
 
 INSERT INTO `tbl_accortolak` (`id`, `penolak`, `keterangan`) VALUES
-(0, 'RT', 'lampiran tidak sesuia dengan kk');
+(4, 'RW', 'sadaga');
 
 -- --------------------------------------------------------
 
@@ -288,7 +288,7 @@ CREATE TABLE `tbl_pengajuan` (
 --
 
 INSERT INTO `tbl_pengajuan` (`id`, `nama`, `email`, `nik`, `no_kk`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `status_menikah`, `pekerjaan`, `agama`, `no_telp`, `negara`, `alamat`, `rt`, `rw`, `desa`, `kec`, `kab`, `prov`, `kd_post`, `pengajuan`, `lampiran`, `acc_rt`, `acc_rw`, `acc_kepdes`) VALUES
-(4, 'MAE', 'mae@gmail.com', '350618', '350618', 'pr', 'SERANG', '18/08/1997', 'belum', 'MAHASISWI', 'ISLAM', '08767698643', 'INDONESIA', 'KP. PANDELEKAN', '006', '002', 'WARAKAS', 'BINUANG', 'SERANG', 'BANTEN', '71878', 'ktp', 'lampiran1625360391.png', 'tolak', '', '');
+(4, 'MAE', 'mae@gmail.com', '350618', '350618', 'pr', 'SERANG', '18/08/1997', 'belum', 'MAHASISWI', 'ISLAM', '08767698643', 'INDONESIA', 'KP. PANDELEKAN', '006', '002', 'WARAKAS', 'BINUANG', 'SERANG', 'BANTEN', '71878', 'ktp', 'lampiran1625360391.png', 'acc', 'acc', 'acc');
 
 -- --------------------------------------------------------
 
@@ -384,8 +384,9 @@ CREATE TABLE `tbl_user` (
 
 INSERT INTO `tbl_user` (`id_users`, `nama`, `email`, `password`, `images`, `id_user_level`, `is_aktif`, `nik`, `no_kk`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `status_menikah`, `pekerjaan`, `agama`, `no_telp`, `negara`, `alamat`, `rt`, `rw`, `desa`, `kec`, `kab`, `prov`, `kd_post`) VALUES
 ('123', 'Ma\'mun Amri', 'mamunamri97@gmail.com', 'Zn90', 'foto_profil1625321787.png', 1, 'y', '123', '123', 'lk', '123', '06/29/2021', 'belum', '123', '123', '123', '123', 'serang', '001', '002', 'warakas`', 'binuang', 'serang', 'banten', '1234'),
-('350618', 'MAE', 'mae@gmail.com', 'Zn90', 'foto_profil1625363992.png', 12, 'y', '350618', '350618', 'pr', 'SERANG', '18/08/1997', 'belum', 'MAHASISWI', 'ISLAM', '08778787987', 'INDONESIA', 'KP. WULUH TENGAH', '001', '002', 'WARAKAS', 'BINUANG', 'SERANG', 'BANTEN', '209098'),
+('350618', 'MAE', 'mae@gmail.com', 'Zn90', 'foto_profil1625363992.png', 12, 'y', '350618', '350618', 'pr', 'SERANG', '18/08/1997', 'belum', 'MAHASISWI', 'ISLAM', '08778787987', 'INDONESIA', 'KP. WULUH TENGAH', '006', '002', 'WARAKAS', 'BINUANG', 'SERANG', 'BANTEN', '209098'),
 ('360410', 'JESAN', 'jesan@gmail.com', 'Zn90', 'foto_profil1625364248.png', 10, 'y', '360410', '360410', 'lk', 'SERANG', '11/10/1956', 'kawin', 'RW', 'ISLAM', '08098090', 'INDONESIA', 'KP. PANDELEKAN KIDUL', '001', '002', 'WARAKAS', 'BINUANG', 'SERANG', 'BANTEN', '78798'),
+('360411', 'A.Yamin', 'yamina@gmail.com', 'Zn90', 'foto_profil1625646475.png', 9, 'y', '360411', '360411', 'lk', 'Serang', '11/02/1956', 'kawin', 'Kepala Desa', 'Islam', '089908239823', 'Indonesia', 'Kp. Pandelekan', '006', '002', 'Warakas', 'Binuang', 'Serang', 'Banten', '98989'),
 ('36043', 'Amir', 'amir@gmail.com', 'Zn90', 'foto_profil1625362584.png', 11, 'y', '36043', '36043', 'lk', 'SERANG', '18/07/1975', 'kawin', 'RT', 'ISLAM', '089999798787', 'INDONESIA', 'KP. PANDELEKAN LOR', '006', '002', 'WARAKAS', 'BINUANG', 'SERANG', 'BANTEN', '29198'),
 ('36044', 'JUNED', 'juned@gmail.com', 'Zn90', 'foto_profil1625365365.png', 12, 'y', '36044', '36044', 'lk', 'SERANG', '14/07/2000', 'belum', 'SISWA', 'ISLAM', '088799887', 'INDONESIA', 'KP. WULUH TENGAH', '006', '002', 'WARAKAS', 'BINUANG', 'SERANG', 'BANTEN', '10982');
 
