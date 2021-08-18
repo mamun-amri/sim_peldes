@@ -37,7 +37,8 @@ class Auth extends CI_Controller
             $sess_data['status_login']        = 'login';
             $this->session->set_userdata($sess_data);
             $this->session->set_flashdata('welcome', 'welcome');
-            redirect(site_url() . 'Dashboard');
+            // redirect(site_url() . 'Dashboard');
+            redirect(site_url() . 'User');
         }
     }
 

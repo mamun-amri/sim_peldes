@@ -86,8 +86,12 @@
  					<td><?php echo $pengajuan->no_telp ?></td>
  					<!-- <td><?php echo $pengajuan->negara ?></td>
 			<td><?php echo $pengajuan->alamat ?></td> -->
- 					<td><?php echo $pengajuan->rt ?></td>
- 					<td><?php echo $pengajuan->rw ?></td>
+ 					<td>
+ 						<?php echo $pengajuan->rt ?>
+ 					</td>
+ 					<td>
+ 						<?php echo $pengajuan->rw ?>
+ 					</td>
  					<!-- <td><?php echo $pengajuan->desa ?></td>
 			<td><?php echo $pengajuan->kec ?></td>
 			<td><?php echo $pengajuan->kab ?></td>

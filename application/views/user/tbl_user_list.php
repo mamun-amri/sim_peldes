@@ -60,6 +60,7 @@
                      <th>Password</th>
                      <th>Images</th>
                      <th>Id User Level</th>
+                     <th>RT/RW</th>
                      <th>Is Aktif</th>
 
                      <th>Action</th>
@@ -72,7 +73,13 @@
                          <td><?php echo $user->email ?></td>
                          <td><?php echo $user->password ?></td>
                          <td><?php echo $user->images ?></td>
-                         <td><?php echo $user->id_user_level ?></td>
+                         <td>
+                             <?php
+                                $row = $this->db->get_where("tbl_user_level", ["id_user_level" => "$user->id_user_level"])->row();
+                                echo $row->nama_level;
+                                ?>
+                         </td>
+                         <td><?php echo $user->rt . "-" . $user->rw ?></td>
                          <td><?php echo $user->is_aktif ?></td>
                          <td style="text-align:center" width="200px">
                              <?php
